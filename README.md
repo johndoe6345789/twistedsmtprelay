@@ -1,5 +1,7 @@
 # Twisted SMTP Ingest + Gmail Relay + HTTP Stats
 
+Set SMTP_LISTEN_HOST=0.0.0.0 and HTTP_LISTEN_HOST=0.0.0.0 so Twisted binds the SMTP and HTTP listeners to all interfaces.
+
 - **SMTP server** (Twisted) listens on a **non-privileged port (>1024)** and accepts mail.
 - **SMTP client** (Twisted) relays received mail to **Gmail SMTP (submission)** via STARTTLS.
 - **HTTP server** (Twisted Web) serves a simple dashboard with:
