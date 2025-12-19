@@ -1,3 +1,4 @@
 twisted>=24.7.0
 cryptography
 pyopenssl
+service_identity
