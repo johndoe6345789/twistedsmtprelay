@@ -70,7 +70,6 @@ def relay_to_gmail(
         username=cfg.gmail_username,
         password=cfg.gmail_app_password,
         requireTransportSecurity=True,
-        contextFactory=context,
         reactor=reactor
     )
     return d
