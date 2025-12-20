@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from email import message_from_bytes
+from email import policy, message_from_bytes
 from email.message import EmailMessage
 
 from twisted.internet import defer, reactor
@@ -12,7 +12,7 @@ from .models import InboundMeta
 
 
 def _as_email_message(raw_bytes: bytes) -> EmailMessage:
-    msg = message_from_bytes(raw_bytes, policy=email.policy.default)
+    msg = message_from_bytes(raw_bytes, policy=policy.default)
     if isinstance(msg, EmailMessage):
         return msg
     em = EmailMessage()
