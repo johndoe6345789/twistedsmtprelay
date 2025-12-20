@@ -12,7 +12,7 @@ from .models import InboundMeta
 
 
 def _as_email_message(raw_bytes: bytes) -> EmailMessage:
-    msg = message_from_bytes(raw_bytes)
+    msg = message_from_bytes(raw_bytes, policy=email.policy.default)
     if isinstance(msg, EmailMessage):
         return msg
     em = EmailMessage()
