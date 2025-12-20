@@ -129,5 +129,5 @@ class RelaySMTPFactory(smtp.SMTPFactory):
 
     def __init__(self, cfg: RelayConfig, store: MessageStore) -> None:
         delivery = _Delivery(cfg, store)
-        super().__init__(delivery)
+        super().__init__()     # don’t pass delivery as the portal
         self.delivery = delivery
