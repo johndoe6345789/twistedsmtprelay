@@ -11,6 +11,7 @@ from .models import InboundMeta, RelayAttempt, utc_now
 from .relay_client import extract_subject, relay_to_gmail
 from .store import MessageStore
 
+from zope.interface import implementer
 
 def _norm_addr(addr: str) -> str:
     return addr.strip().lower()
@@ -19,7 +20,7 @@ def _norm_addr(addr: str) -> str:
 def _decode_addr(addr: smtp.Address) -> str:
     return str(addr)
 
-
+@implementer(smtp.IMessage)
 class _Message:
     def __init__(self, cfg: RelayConfig, store: MessageStore, meta: InboundMeta) -> None:
         self._cfg = cfg
@@ -73,7 +74,7 @@ class _Message:
     def connectionLost(self) -> None:
         self._lines.clear()
 
-
+@implementer(smtp.IMessageDelivery)
 class _Delivery:
     def __init__(self, cfg: RelayConfig, store: MessageStore) -> None:
         self._cfg = cfg
