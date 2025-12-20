@@ -62,15 +62,15 @@ def relay_to_gmail(
     context = optionsForClientTLS(hostname=cfg.gmail_host)
 
     d: defer.Deferred[None] = smtp.sendmail(
-        reactor=reactor,
-        hostname=cfg.gmail_host,
-        fromAddress=cfg.relay_from,
-        toAddress=cfg.forward_to,
-        msg=msg_bytes,
+        cfg.gmail_host,
+        cfg.relay_from,
+        cfg.forward_to,
+        msg_bytes,
         port=cfg.gmail_port,
         username=cfg.gmail_username,
         password=cfg.gmail_app_password,
         requireTransportSecurity=True,
         contextFactory=context,
+        reactor=reactor
     )
     return d
