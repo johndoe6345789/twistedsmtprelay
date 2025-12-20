@@ -126,8 +126,12 @@ class _PeerTrackingESMTP(smtp.ESMTP):
 
 class RelaySMTPFactory(smtp.SMTPFactory):
     protocol = _PeerTrackingESMTP
+    def __init__(self, cfg, store):
+        self.delivery = _Delivery(cfg, store)
+        super().__init__()
 
-    def __init__(self, cfg: RelayConfig, store: MessageStore) -> None:
-        delivery = _Delivery(cfg, store)
-        super().__init__()     # don’t pass delivery as the portal
-        self.delivery = delivery
+    def buildProtocol(self, addr):
+        p = super().buildProtocol(addr)
+        # attach the delivery object so validateFrom/validateTo work
+        p.delivery = self.delivery
+        return p
