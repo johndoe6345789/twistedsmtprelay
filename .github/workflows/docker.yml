@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       # Needed only for cross-platform builds (e.g. arm64 on amd64 runner)
       - name: Set up QEMU
